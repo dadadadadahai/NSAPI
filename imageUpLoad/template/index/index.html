@@ -1,0 +1,152 @@
+
+<!doctype html>
+<html lang="zh-CN">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="screen-orientation" content="portrait"><!-- uc强制竖屏 -->
+	<meta name="x5-orientation" content="portrait"><!-- QQ强制竖屏 -->
+    <style>
+		a[class="button-selectimg"] {
+             color: #fff;
+            padding: 4px 6px;
+            border: 1px solid #00A2D4;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 20px;
+            background-color: #00A2D4;
+        }
+        
+        input[id="avatval"] {
+            padding: 3px 6px;
+            padding-left: 10px;
+            border: 1px solid #000;
+            width: 95%;
+            height: 25px;
+            line-height: 25px;
+            background: #FAFAFB;
+            border-radius: 5px;
+        }
+        
+        input[type='file'] {
+            border: 0px;
+            display: none;
+        }
+        #preview{border: 1px solid #000;height: 300px;width: 100%;border-radius: 5px;}
+        #form{line-height: 50px;margin-top: 50px;}
+
+        #image_preview{
+        	display: none;
+        	max-width: 100%;
+        	max-height: 100%;
+        }
+        .agroup , #preview{text-align: center;margin-top: 20px;}
+	</style>
+</head>
+
+<body>
+	<div>
+		<form action="/imageUp/index/{{ uid }}" method="post" enctype="multipart/form-data" id="form">
+			<input type="text" id="avatval" placeholder="Selecione uma imagem" readonly="readonly" />
+            <p style="color: red;">Nota: Por favor, selecione uma imagem dentro de 5M para carregar.</p>
+		   	<input type="file" name="fileToUpload" id="avatar" accept="image/*"/>
+		   	
+		</form>
+	</div>
+	<p>pré-visualização:</p>
+	<div id="preview">
+		
+		<img src="#" alt="Image Preview" id="image_preview">
+	</div>
+    <div class="agroup">
+        <a href="javascript:void(0);" class="button-selectimg" id="upload">envia</a>
+    </div>
+</body>
+
+
+<script src="{% static 'jquery-3.6.1.min.js' %}"> </script>
+<script>
+	$(function(){
+            $("#avatval").click(function(){
+                $("input[type='file']").trigger('click');
+            });
+            $("input[type='file']").change(function(){
+                $("#avatval").val($(this).val());
+            });
+       });
+    
+    var MAX_SIZE = 500;
+    var files = [];
+    //监听文件选择事件
+    $("#avatar").on('change', function(event) {
+        var fileImg = this.files;
+        for (var i = 0; i < fileImg.length; i++) {
+            var file = fileImg[i];
+            if (!/image\/\w+/.test(file.type)) {
+                alert("Selecione uma imagem")
+                return false;
+            }
+           if (file.size / 1024 > 5000){
+            	alert("O tamanho do arquivo da imagem é muito grande. Por favor, selecione outra imagem para fazer o upload.");
+            	$("#avatar").val("");
+                return false;
+            }
+            var reader = new FileReader();
+            
+            (function (x) {
+                reader.onload = function (e) {
+                    $("#image_preview").attr("src" ,event.target.result );
+					$("#image_preview").show();
+
+                    render(this.result, x);
+                }
+            })(file.name);
+        
+            reader.readAsDataURL(file);
+        }
+    });
+ 	//压缩图片
+    function render(src, name) {
+        
+        var image = new Image();
+ 
+        image.onload = function () {
+
+           
+            if (image.width > MAX_SIZE && image.width >= image.height) {
+                image.height *= MAX_SIZE / image.width;
+                image.width = MAX_SIZE;
+            }
+           
+            if (image.height > MAX_SIZE && image.height > image.width) {
+                image.width *= MAX_SIZE / image.height;
+                image.height = MAX_SIZE;
+            }
+            var canvas = document.createElement("canvas");
+           
+            var ctx = canvas.getContext("2d");
+            canvas.width = image.width;
+            canvas.height = image.height;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+           
+            ctx.drawImage(image, 0, 0, image.width, image.height);
+            var blob = canvas.toDataURL("image/png");
+            files.push(blob);
+            $("#image_preview").attr("src" ,blob );
+        };
+        image.src = src;
+    }
+
+    //监听上传按钮
+    $("#upload").on('click', function(event) {
+
+    	$('#form').submit();
+    });
+ 
+
+
+</script>
+</html>

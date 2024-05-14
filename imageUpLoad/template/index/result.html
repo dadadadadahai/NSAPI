@@ -1,0 +1,46 @@
+
+<!doctype html>
+<html lang="zh-CN">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="screen-orientation" content="portrait"><!-- uc强制竖屏 -->
+	<meta name="x5-orientation" content="portrait"><!-- QQ强制竖屏 -->
+    <style>
+		
+		.img_div{
+			width: 275px;
+			height:300px;
+			overflow: hidden;
+			margin:auto;
+		}
+		.img_div_0{
+			background:url("{% static 'no.jpg' %}") no-repeat;
+			background-size: 100%
+		}
+		.img_div_1{
+			background:url("{% static 'yes.jpg' %}") no-repeat;
+			background-size: 100%
+		}
+		p{
+			text-align: center;
+			font-size: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="content">
+		<div class="img_div img_div_{{status}}" >
+			
+		</div>
+        
+        <p><b><i>{{msg}}</i></b></p>
+	</div>
+	
+</body>
+</html>
+
