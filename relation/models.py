@@ -40,6 +40,7 @@ class extensionRelation(Document):
     parent =IntField(default=0)         #直属上级id
     parentsTime=IntField(default=0)      #绑定时间
     # childs = ListField(EmbeddedDocumentField(exChildInfo))
+    oneUnderNum = IntField(default=0)   #直属下线人数
     belowNum = IntField(default=0)       #下线总人数4层
     tolrebate = IntField(default=0)     #下线总共返利值
     rebatechip = IntField(default=0)  # 可提现金额

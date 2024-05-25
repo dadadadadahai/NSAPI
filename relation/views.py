@@ -30,6 +30,7 @@ def getParentInfo(parentId):
         parentInfo = parents[0]
     return parentInfo
 def bindById(parentId,uid):
+    #获取父级相关
     parentInfo=getParentInfo(parentId)
     relations = models.extensionRelation.objects(_id=uid)
     if len(relations)<=0:
@@ -39,6 +40,8 @@ def bindById(parentId,uid):
             cparents = parents.copy()
             cparents.append(parentId)
             calcBelowNum(parentInfo)
+            #直属下级+1
+            parentInfo.oneUnderNum+=1
             parentInfo.save()
         #保存数据库
         trelation=models.extensionRelation(_id=uid,parents=cparents,parentsTime=time.time(),parent=parentId,belowNum=0)
