@@ -12,42 +12,7 @@ def queryNumVal(request,uid):
     if not exteninfo:
          exteninfo=models.extensionRelation(_id=uid,parents=[])
          exteninfo.save()
-    #取当日时间戳
-    todaycls =  datetime.datetime.today()
-    year,month,day =  todaycls.year,todaycls.month,todaycls.day
-    #取记录时间戳
-    if exteninfo.addFlowingTimes>0:
-        stampTimes =  datetime.datetime.fromtimestamp(exteninfo.addFlowingTimes)
-        if year!=stampTimes.year or month!=stampTimes.month or day!=stampTimes.day:
-            exteninfo.todayFlowingChips += exteninfo.tomorrowFlowingChips
-            exteninfo.tomorrowFlowingChips = 0
-            exteninfo.addFlowingTimes = time.time()
-            exteninfo.save()
-    validinViteNum = 0
-    validinViteFreeNum = 0
-    validinViteChips = 0
-    tmpvaild =  models.validinvite.objects(_id=uid).first()
-    if tmpvaild:
-        validinViteNum = len(tmpvaild.validinViteList)
-        validinViteFreeNum = len(tmpvaild.validinViteFreeList)
-        validinViteChips = tmpvaild.validinViteChips
-    #构建返回数据
-    return JsonResponse({
-        "errno":errorDefine.SUCCESS,
-        "rebatechip":exteninfo.rebatechip,
-        "belowNum":exteninfo.belowNum,
-        "tolBelowCharge":exteninfo.tolBelowCharge,
-        "tolrebate":exteninfo.tolrebate,
-        'tomorrowFlowingChips':exteninfo.tomorrowFlowingChips,
-        'todayFlowingChips':exteninfo.todayFlowingChips,
-        'tolBetAll':exteninfo.tolBetAll,
-        'tolBetFall':exteninfo.tolBetFall,
-        'freeValidinViteChips':exteninfo.freeValidinViteChips,
-        "lowrebatechip":500,        #提现最低金额
-        "validinViteNum":validinViteNum,
-        'validinViteFreeNum':validinViteFreeNum,
-        'validinViteChips':  validinViteChips,
-    })
+
 def queryvalidinvitelogDay(request,uid,page):
     day_time = int(time.mktime(datetime.date.today().timetuple()))
     skipnum = (page - 1) * 20

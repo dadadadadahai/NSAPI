@@ -47,7 +47,7 @@ class extensionRelation(Document):
     tolBelowCharge = IntField(default=0) #下线总共充值
     todayFlowingChips =IntField(default=0) #当天可领取金额
     tomorrowFlowingChips = IntField(default=0)#明日可领取金额
-    addFlowingTimes = IntField(default= 0) #上次添加金额的时间戳
+    addFlowingTimes = StringField(default='')
     tolBetAll = IntField(default=0)#总押注
     tolBetFall=IntField(default=0)#总下注返金币
     tolRecv =IntField(default=0) #总领取
