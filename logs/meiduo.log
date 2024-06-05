@@ -3443,3 +3443,19 @@ INFO 2024-05-14 11:47:31,364 autoreload 668 Watching for file changes with StatR
 INFO 2024-05-14 11:49:11,802 basehttp 212 "GET /gamelog/GetGameDetailList/11/127/0/1715616000/1715658496 HTTP/1.1" 200 1132
 INFO 2024-05-14 11:49:11,853 basehttp 212 "GET /gamelog/GetToltalGameRecord/11/1715616000/1715658496 HTTP/1.1" 200 66
 INFO 2024-05-14 13:39:31,859 autoreload 668 Watching for file changes with StatReloader
+INFO 2024-06-04 15:46:09,915 autoreload 668 Watching for file changes with StatReloader
+INFO 2024-06-04 17:00:16,461 autoreload 668 Watching for file changes with StatReloader
+INFO 2024-06-04 17:03:05,142 autoreload 668 Watching for file changes with StatReloader
+INFO 2024-06-04 17:05:46,715 autoreload 668 Watching for file changes with StatReloader
+INFO 2024-06-04 17:26:50,658 autoreload 668 Watching for file changes with StatReloader
+INFO 2024-06-04 17:54:44,946 autoreload 668 Watching for file changes with StatReloader
+INFO 2024-06-04 17:57:13,569 autoreload 668 Watching for file changes with StatReloader
+INFO 2024-06-04 17:57:24,497 autoreload 668 Watching for file changes with StatReloader
+INFO 2024-06-04 17:57:53,643 autoreload 266 D:\yhwork\slots\NSAPI\pay\Tools.py changed, reloading.
+INFO 2024-06-04 17:57:54,743 autoreload 668 Watching for file changes with StatReloader
+INFO 2024-06-04 17:58:03,844 autoreload 668 Watching for file changes with StatReloader
+INFO 2024-06-04 17:58:28,556 autoreload 266 D:\yhwork\slots\NSAPI\pay\Tools.py changed, reloading.
+INFO 2024-06-04 17:58:30,636 autoreload 668 Watching for file changes with StatReloader
+INFO 2024-06-04 17:58:36,305 autoreload 266 D:\yhwork\slots\NSAPI\pay\Tools.py changed, reloading.
+INFO 2024-06-04 17:58:37,291 autoreload 668 Watching for file changes with StatReloader
+INFO 2024-06-05 09:58:41,728 autoreload 668 Watching for file changes with StatReloader

@@ -2,10 +2,11 @@ import json
 
 import requests,time,calendar,logging,qrcode,io,base64
 from . import models
-import logging
+import logging,psutil,socket
 import pandas as pd
 from django_redis import get_redis_connection
-
+from django.conf import settings
+from requests_toolbelt import SourceAddressAdapter
 pixelcfg={}
 cfgxls = pd.read_excel('fbpixcode.xlsx')
 for item in cfgxls.values:
@@ -52,7 +53,11 @@ def paySuccessCallBackFbTest(price,ip,fbc,fbp,pixelcode,HTTP_HOST):
         ]
     }
     url = getPushUrl(pixelcode)
-    response = requests.post(url=url,json=senddata)
+    s=requests.session()
+    new_source=SourceAddressAdapter(settings.BIND_IP)
+    s.mount('http://',new_source)
+    s.mount('https://', new_source)
+    response = s.post(url=url,json=senddata)
     print(response.text,HTTP_HOST)
 def payFBAllTest():
     for key in pixelcfg:
@@ -91,7 +96,12 @@ def repotFbEvent(pixecode,method,fbc,fbp,ip):
         ]
     }
     url = getPushUrl(pixelcode)
-    response = requests.post(url=url, json=senddata)
+    s=requests.session()
+    new_source=SourceAddressAdapter(settings.BIND_IP)
+    s.mount('http://',new_source)
+    s.mount('https://', new_source)
+    response = s.post(url=url,json=senddata)
+    # response = requests.post(url=url, json=senddata)
     print(response.text)
 def paySuccessCallBackFirst(uid,price,ip,fbc,fbp,pixelcode,HTTP_HOST,ucinfo):
     if ip=='' or fbc=='' or fbp=='' or ucinfo.IsFirst>0:
@@ -161,7 +171,12 @@ def paySuccessCallBackFb(price,ip,fbc,fbp,pixelcode,HTTP_HOST):
         ]
     }
     url = getPushUrl(pixelcode)
-    response = requests.post(url=url,json=senddata)
+    s=requests.session()
+    new_source=SourceAddressAdapter(settings.BIND_IP)
+    s.mount('http://',new_source)
+    s.mount('https://', new_source)
+    response = s.post(url=url,json=senddata)
+    # response = requests.post(url=url,json=senddata)
     print(response.text)
     logger = logging.getLogger('django')
     logger.info('response=%s,pixelcode=%s'%(response.text,pixelcode))
@@ -196,7 +211,12 @@ def paySuccessCallBackKW(price,click_id,shopId,pixelvalue):
         "accept":"application/json;charset=utf-8",
         "Content-Type":"application/json"
     }
-    response = requests.post(url=url,headers=header,json=senddata)
+    s=requests.session()
+    new_source=SourceAddressAdapter(settings.BIND_IP)
+    s.mount('http://',new_source)
+    s.mount('https://', new_source)
+    response = s.post(url=url,headers=header,json=senddata)
+    # response = requests.post(url=url,headers=header,json=senddata)
     print(response.text)
     logger = logging.getLogger('django')
     logger.info('response=%s,pixelvalue=%s kw' % (response.text, pixelvalue))
@@ -229,7 +249,12 @@ def paySuccessCallBackKWTest(price,click_id,shopId,pixelvalue):
         "accept":"application/json;charset=utf-8",
         "Content-Type":"application/json"
     }
-    response = requests.post(url=url,headers=header,json=senddata)
+    s=requests.session()
+    new_source=SourceAddressAdapter(settings.BIND_IP)
+    s.mount('http://',new_source)
+    s.mount('https://', new_source)
+    response = s.post(url=url,headers=header,json=senddata)
+    # response = requests.post(url=url,headers=header,json=senddata)
     print(response.text)
 # paySuccessCallBackKWTest(3000,'/Vevh+i6B3scIv8LE9Qv0g==',101,'571424621657337921')
 
@@ -257,7 +282,12 @@ def viewSuccessCallBackKW(uid,click_id,pixelvalue):
         "accept":"application/json;charset=utf-8",
         "Content-Type":"application/json"
     }
-    response = requests.post(url=url,headers=header,json=senddata)
+    s=requests.session()
+    new_source=SourceAddressAdapter(settings.BIND_IP)
+    s.mount('http://',new_source)
+    s.mount('https://', new_source)
+    response = s.post(url=url,headers=header,json=senddata)
+    # response = requests.post(url=url,headers=header,json=senddata)
     #保存信息
     cinfo = models.uchannelinfo.objects(_id=uid).first()
     if not cinfo:

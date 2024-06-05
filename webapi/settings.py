@@ -220,5 +220,8 @@ LOGGING = {
         },
     }
 }
+BIND_IP = '127.0.0.1'
+
+
 # logger = logging.getLogger('loggers')
 # logger.info('这是测试')
