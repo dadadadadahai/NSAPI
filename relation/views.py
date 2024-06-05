@@ -2,6 +2,7 @@ import time
 
 from django.http import JsonResponse
 from errorDefine import errorDefine
+
 from . import models
 # Create your views here.
 def bind(request,parentInviter,uidInviter):
@@ -42,6 +43,7 @@ def bindById(parentId,uid):
             calcBelowNum(parentInfo)
             #直属下级+1
             parentInfo.oneUnderNum=parentInfo.oneUnderNum+1
+            
             parentInfo.save()
         #保存数据库
         trelation=models.extensionRelation(_id=uid,parents=cparents,parentsTime=time.time(),parent=parentId,belowNum=0)
@@ -90,3 +92,4 @@ def calcBelowNum(parentInfo):
             parent.belowNum = parent.belowNum + 1
             parent.save()
             forward = forward + 1
+
