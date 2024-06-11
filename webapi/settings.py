@@ -220,7 +220,7 @@ LOGGING = {
         },
     }
 }
-BIND_IP = '127.0.0.1'
+BIND_IP = '128.1.240.109'
 
 
 # logger = logging.getLogger('loggers')

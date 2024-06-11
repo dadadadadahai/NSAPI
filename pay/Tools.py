@@ -106,7 +106,7 @@ def repotFbEvent(pixecode,method,fbc,fbp,ip):
 def paySuccessCallBackFirst(uid,price,ip,fbc,fbp,pixelcode,HTTP_HOST,ucinfo):
     if ip=='' or fbc=='' or fbp=='' or ucinfo.IsFirst>0:
         return
-    price = round(price/100)
+    price = round(price/500)
     hv = 4.9
     if pixelcode in pixelcfg:
         hv = pixelcfg[pixelcode]['hv']
@@ -142,7 +142,7 @@ def paySuccessCallBackFirst(uid,price,ip,fbc,fbp,pixelcode,HTTP_HOST,ucinfo):
 def paySuccessCallBackFb(price,ip,fbc,fbp,pixelcode,HTTP_HOST):
     if ip=='' or fbc=='' or fbp=='':
         return
-    price = round(price/100)
+    price = round(price/500)
     hv = 4.9
     if pixelcode in pixelcfg:
         hv = pixelcfg[pixelcode]['hv']
@@ -185,12 +185,13 @@ def kwIdToToken(pixelvalue):
         return 'fMWLhiaK28UnTVB4cw+KWajDJ833oqvBisDiG/0dFkw='
     elif pixelvalue=='571413691213033523':
         return 'wDjPb3V/Fkl97vqssDWpIiBue38KRMJ/n+T3vVC7xO0='
-
+    elif pixelvalue=='249700980992654':
+        return 'd6FGC3Y1tZcgOW8lLRXgF2i9FkMQqnxrEfuNL0Uuyew='
 def paySuccessCallBackKW(price,click_id,shopId,pixelvalue):
     if click_id=='':
         return
     token = kwIdToToken(pixelvalue)
-    price = round(price / 100)
+    price = round(price / 500)
     us = round(price / 4.9, 2)
     property="""{"content_id":%d,"value"=%.2f}"""%(shopId,us)
     senddata={
