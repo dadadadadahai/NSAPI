@@ -67,7 +67,8 @@ def payFBAllTest():
                                  'fb.1.1701328520680.IwAR1NKiVYHmsgJ-bi8KOje3fj9ZJVud2PuU1e3Up1_iYPsdXZDtLWLLmGxGw',
                                  'fb.1.1701156039780.182735580',key,'')
 
-# payFBAllTest()
+#payFBAllTest()
+
 #FB上报各种数据
 def repotFbEvent(pixecode,method,fbc,fbp,ip):
     if pixecode=="" or fbp=="" or fbc=="":

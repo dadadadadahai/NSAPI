@@ -9,13 +9,13 @@ def RepayRequest(repayOrder,phoneNum):
     chavePix = repayOrder.chavePix
     if repayOrder.chavePixNum==1:
         chavePix = '+55'+chavePix
-    key = 'dd144934056253ce601b5c3ab1d80cf0'
+    key = '4ef7778c3dc870084d1624630ff6dacc'
     requestItem = {}
-    requestItem['mer_no'] = '1003522'
+    requestItem['mer_no'] = '1003878'
     requestItem['order_no'] = repayOrder._id
     requestItem['method']='fund.apply'
     requestItem['order_amount'] = str(round(repayOrder.dinheiro/100,2))
-    requestItem['currency'] = 'BRL'
+    requestItem['currency'] = 'MYR'
     requestItem['acc_code'] = '123123'
     requestItem['acc_name'] = repayOrder.name
     requestItem['acc_no'] = chavePix
@@ -23,7 +23,7 @@ def RepayRequest(repayOrder,phoneNum):
     requestItem['province'] = repayOrder.cpf
     # requestItem['acc_phone'] = '55'+phoneNum
     requestItem['otherpara1'] =typeMap[repayOrder.chavePixNum]
-    requestItem['otherpara2'] = 'PIX'
+    requestItem['otherpara2'] = 'RM'
     requestItem0 = sorted(requestItem.keys())
     signstr = ''
     for keyval in requestItem0:
@@ -65,7 +65,7 @@ def FastPayCallBack(request):
                 continue
             signstr = signstr + '&{}={}'.format(keyval, requestItem[keyval])
         signstr = signstr[1:]
-        key = 'dd144934056253ce601b5c3ab1d80cf0'
+        key = '4ef7778c3dc870084d1624630ff6dacc'
         signstr = signstr + '{}'.format(key)
         m2 = hashlib.md5()
         m2.update(signstr.encode(encoding='utf-8'))

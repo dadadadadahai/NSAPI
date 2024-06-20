@@ -7,7 +7,7 @@ from . import Tools
 import random
 # Create your views here.
 #发起支付请求
-def payrequest(request,uid,shopId,price,channelNo):
+def payrequest(request,uid,shopId,price,channelNo,paytype):
     ip = Tools.getRemoteIp(request)
     fbp = request.GET.get('fbp',default='')
     fbc = request.GET.get('fbc',default='')
@@ -32,7 +32,7 @@ def payrequest(request,uid,shopId,price,channelNo):
     #         channelNo=3
     #进入支付,发起
     if channelNo==3:
-        rdata = FastPay.RequestPay(uid,shopId,price,uinfo,click_id,channelinfo)
+        rdata = FastPay.RequestPay(uid,shopId,price,uinfo,click_id,channelinfo,paytype)
     elif channelNo==4:
         rdata = Goopagoo.RequestPay(uid,shopId,price,uinfo,click_id,channelinfo)
     elif channelNo==5:
@@ -40,7 +40,7 @@ def payrequest(request,uid,shopId,price,channelNo):
     elif channelNo == 6:
         rdata = hkpPay.RequestPay(uid, shopId, price, uinfo, click_id, channelinfo)
     elif channelNo==10:
-        rdata = payTest.payTest(uid,shopId,price)
+        rdata = payTest.payTest(uid,shopId,price,paytype)
     return JsonResponse(rdata)
 
 def payrequestUrl(request,uid,shopId,price,channelNo):
